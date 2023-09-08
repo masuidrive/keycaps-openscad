@@ -3,7 +3,8 @@ name: Generate STL and Thumbnails using OpenSCAD
 on:
   push:
     paths:
-      - "**/*.scad"
+      - "*/**/*.txt"
+      - "*/**/*.scad"
       - ".github/workflows/**/*"
 
 jobs:
@@ -21,7 +22,6 @@ jobs:
 
       - name: Generate STL files and multiple PNG thumbnails
         run: |
-          thumbnail_counter=1
           xvfb-run -a --server-args="-screen 0 1024x768x24" bash -c '
             find . -name "*.scad" | grep -v "^./lib/" | while read scad; do
                 stl_path="${scad%.scad}.stl"
@@ -32,6 +32,7 @@ jobs:
                   "0,0,0,-45,45,0,100"
                   "0,0,0,-45,-45,0,100"
                 )
+                thumbnail_counter=1
                 for angle in "${angles[@]}"; do
                     png_path="${scad%.scad}_$thumbnail_counter.png"
                     openscad --camera=$angle --colorscheme="Tomorrow" --render --imgsize=512,512 -o $png_path $scad
