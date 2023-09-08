@@ -1,4 +1,4 @@
-name: Generate STL and WebP Thumbnails using OpenSCAD
+name: Generate STL and Thumbnails using OpenSCAD
 
 on:
   push:
@@ -38,16 +38,15 @@ jobs:
             done
           '
 
-
       - name: Convert PNG thumbnails to WebP
         run: |
           for png in $(find . -name "*.png"); do
               cwebp $png -o ${png%.png}.webp
           done
 
-      - name: Clean up directory (Only keep STL and WebP files)
+      - name: Clean up directory (Only keep STL, WebP, and txt files)
         run: |
-          find . ! -path "./.git/*" ! -name ".git" -type f ! \( -name "*.stl" -o -name "*.webp" \) -delete
+          find . ! -path "./.git/*" ! -name ".git" -type f ! \( -name "*.stl" -o -name "*.webp" -o -name "*.txt" \) -delete
 
       - name: Generate index.html
         run: |
@@ -57,6 +56,10 @@ jobs:
             echo "<h2 class='text-2xl font-bold'>$dirName</h2><div class='grid grid-cols-4 gap-4'>" >> index.html
             for webp in $(find $dir -name "*.webp"); do
                 baseName=$(basename -s .webp $webp)
+                txtPath="${webp%.webp}.txt"
+                if [[ -f $txtPath ]]; then
+                    echo "<p class='col-span-4'>$(cat $txtPath | sed 's/$/<br \/>/')</p>" >> index.html
+                fi
                 echo "<img class='w-24 h-24' src='$webp' title='$baseName'>" >> index.html
             done
             echo "</div>" >> index.html
