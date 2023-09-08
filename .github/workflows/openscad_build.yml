@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install OpenSCAD, WebP tools, and Xvfb
         run: |
@@ -26,13 +26,15 @@ jobs:
                 stl_path="${scad%.scad}.stl"
                 openscad -o $stl_path $scad
                 angles=(
-                  "0,0,0,45,45,0,100"   # X軸とY軸の両方で45°回転
-                  "0,0,0,45,-45,180,100"  # X軸で45°、Y軸で-45°回転
-                  "0,0,0,-45,45,0,100"  # X軸で-45°、Y軸で45°回転
-                  "0,0,0,-45,-45,0,100" # X軸とY軸の両方で-45°回転
+                  "0,0,0,45,45,0,100"
+                  "0,0,0,45,-45,180,100"
+                  "0,0,0,-45,45,0,100"
+                  "0,0,0,-45,-45,0,100"
                 )
+                count=0
                 for angle in "${angles[@]}"; do
-                    png_path="${scad%.scad}_$(echo $angle | tr ',' '-').png"
+                    count=$((count+1))
+                    png_path="${scad%.scad}_$count.png"
                     openscad --camera=$angle --colorscheme="Tomorrow" --render --imgsize=512,512 -o $png_path $scad
                 done
             done
@@ -51,15 +53,17 @@ jobs:
       - name: Generate index.html
         run: |
           echo "<!DOCTYPE html><html><head><link href='https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css' rel='stylesheet'></head><body>" > index.html
-          for dir in $(find . -type d -not -path './.git*'); do
-            dirName=$(basename $dir)
-            echo "<h2 class='text-2xl font-bold'>$dirName</h2><div class='grid grid-cols-4 gap-4'>" >> index.html
-            for webp in $(find $dir -name "*.webp"); do
+          for stl in $(find . -name "*.stl"); do
+            stlName=$(basename $stl)
+            echo "<h2 class='text-2xl font-bold'>$stlName</h2>" >> index.html
+            txtPath="${stl%.stl}.txt"
+            if [[ -f $txtPath ]]; then
+                echo "<p>$(cat $txtPath | sed 's/$/<br \/>/')</p>" >> index.html
+            fi
+            echo "<div class='grid grid-cols-4 gap-4'>" >> index.html
+            for i in {1..4}; do
+                webp="${stl%.stl}_$i.webp"
                 baseName=$(basename -s .webp $webp)
-                txtPath="${webp%.webp}.txt"
-                if [[ -f $txtPath ]]; then
-                    echo "<p class='col-span-4'>$(cat $txtPath | sed 's/$/<br \/>/')</p>" >> index.html
-                fi
                 echo "<img class='w-24 h-24' src='$webp' title='$baseName'>" >> index.html
             done
             echo "</div>" >> index.html
