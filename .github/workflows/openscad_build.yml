@@ -3,8 +3,7 @@ name: Generate STL and Thumbnails using OpenSCAD
 on:
   push:
     paths:
-      - "*/**/*.scad"
-      - "*/**/*.txt"
+      - "**/*.scad"
       - ".github/workflows/**/*"
 
 jobs:
@@ -22,6 +21,7 @@ jobs:
 
       - name: Generate STL files and multiple PNG thumbnails
         run: |
+          thumbnail_counter=1
           xvfb-run -a --server-args="-screen 0 1024x768x24" bash -c '
             find . -name "*.scad" | grep -v "^./lib/" | while read scad; do
                 stl_path="${scad%.scad}.stl"
@@ -32,42 +32,48 @@ jobs:
                   "0,0,0,-45,45,0,100"
                   "0,0,0,-45,-45,0,100"
                 )
-                count=0
                 for angle in "${angles[@]}"; do
-                    count=$((count+1))
-                    png_path="${scad%.scad}_$count.png"
+                    png_path="${scad%.scad}_$thumbnail_counter.png"
                     openscad --camera=$angle --colorscheme="Tomorrow" --render --imgsize=512,512 -o $png_path $scad
+                    thumbnail_counter=$((thumbnail_counter + 1))
                 done
             done
           '
 
       - name: Convert PNG thumbnails to WebP
         run: |
+          thumbnail_counter=1
           for png in $(find . -name "*.png"); do
-              cwebp $png -o ${png%.png}.webp
+              webp_path="${png%.png}_$thumbnail_counter.webp"
+              cwebp $png -o $webp_path
+              thumbnail_counter=$((thumbnail_counter + 1))
           done
 
-      - name: Clean up directory (Only keep STL, WebP, and txt files)
+      - name: Clean up directory (Only keep STL and WebP files and txt descriptions)
         run: |
           find . ! -path "./.git/*" ! -name ".git" -type f ! \( -name "*.stl" -o -name "*.webp" -o -name "*.txt" \) -delete
 
       - name: Generate index.html
         run: |
+          repo_url="https://github.com/$GITHUB_REPOSITORY/blob/gh-pages"
           echo "<!DOCTYPE html><html><head><link href='https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css' rel='stylesheet'></head><body>" > index.html
-          for stl in $(find . -name "*.stl"); do
-            stlName=$(basename $stl)
-            echo "<h2 class='text-2xl font-bold'>$stlName</h2>" >> index.html
-            txtPath="${stl%.stl}.txt"
-            if [[ -f $txtPath ]]; then
-                echo "<p>$(cat $txtPath | sed 's/$/<br \/>/')</p>" >> index.html
+          find . -name "*.stl" | while read stl; do
+            stl_base_name=$(basename $stl)
+            scad_name="${stl%.stl}.scad"
+            txt_name="${stl%.stl}.txt"
+            echo "<h2 class='text-2xl font-bold'><a href='$repo_url/$stl'>$stl_base_name</a></h2>" >> index.html
+            if [ -f $txt_name ]; then
+                cat $txt_name | sed 's/$/<br\/>/' >> index.html
             fi
-            echo "<div class='grid grid-cols-4 gap-4'>" >> index.html
-            for i in {1..4}; do
-                webp="${stl%.stl}_$i.webp"
-                baseName=$(basename -s .webp $webp)
-                echo "<img class='w-24 h-24' src='$webp' title='$baseName'>" >> index.html
+            thumbnail_counter=1
+            while [ $thumbnail_counter -le 4 ]; do
+                webp_name="${stl%.stl}_$thumbnail_counter.webp"
+                if [ -f $webp_name ]; then
+                    echo "<a href='$repo_url/$webp_name'><img class='w-24 h-24' src='$webp_name' title='$stl_base_name'></a>" >> index.html
+                fi
+                thumbnail_counter=$((thumbnail_counter + 1))
             done
-            echo "</div>" >> index.html
+            echo "<br/>" >> index.html
           done
           echo "</body></html>" >> index.html
 
