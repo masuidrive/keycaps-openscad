@@ -3,7 +3,8 @@ name: Generate STL and Thumbnails using OpenSCAD
 on:
   push:
     paths:
-      - "**/*.scad"
+      - "*/**/*.scad"
+      - "*/**/*.txt"
       - ".github/workflows/**/*"
 
 jobs:
