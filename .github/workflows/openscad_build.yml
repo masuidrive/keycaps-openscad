@@ -13,19 +13,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Install OpenSCAD and WebP tools
+      - name: Install OpenSCAD, WebP tools, and Xvfb
         run: |
           sudo apt-get update
-          sudo apt-get install -y openscad webp
+          sudo apt-get install -y openscad webp xvfb
 
       - name: Generate STL files and PNG thumbnails
         run: |
-          find . -name "*.scad" | grep -v "^./lib/" | while read scad; do
-              stl_path="${scad%.scad}.stl"
-              png_path="${scad%.scad}.png"
-              openscad -o $stl_path $scad
-              openscad --render --imgsize=256,256 -o $png_path $scad
-          done
+          xvfb-run -a --server-args="-screen 0 1024x768x24" bash -c '
+            find . -name "*.scad" | grep -v "^./lib/" | while read scad; do
+                stl_path="${scad%.scad}.stl"
+                png_path="${scad%.scad}.png"
+                openscad -o $stl_path $scad
+                openscad --render --imgsize=256,256 -o $png_path $scad
+            done
+          '
 
       - name: Convert PNG thumbnails to WebP
         run: |
