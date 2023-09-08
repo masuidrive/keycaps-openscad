@@ -25,7 +25,12 @@ jobs:
             find . -name "*.scad" | grep -v "^./lib/" | while read scad; do
                 stl_path="${scad%.scad}.stl"
                 openscad -o $stl_path $scad
-                angles=("0,0,0,70,0,0,100" "0,0,0,140,0,0,100" "0,0,0,210,0,0,100" "0,0,0,280,0,0,100")
+                angles=(
+                  "0,0,0,45,45,0,100"   # X軸とY軸の両方で45°回転
+                  "0,0,0,45,-45,0,100"  # X軸で45°、Y軸で-45°回転
+                  "0,0,0,-45,45,0,100"  # X軸で-45°、Y軸で45°回転
+                  "0,0,0,-45,-45,0,100" # X軸とY軸の両方で-45°回転
+                )
                 for angle in "${angles[@]}"; do
                     png_path="${scad%.scad}_$(echo $angle | tr ',' '-').png"
                     openscad --camera=$angle --colorscheme="Tomorrow" --render --imgsize=512,512 -o $png_path $scad
