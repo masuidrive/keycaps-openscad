@@ -37,7 +37,7 @@ jobs:
 
       - name: Clean up directory (Only keep STL and WebP files)
         run: |
-          find . \( -name .git -prune \) -o \( ! -name "*.webp" ! -name "*.stl" -exec rm -rf {} \; \)
+          find . ! -path "./.git/*" ! -name ".git" -type f ! \( -name "*.stl" -o -name "*.webp" \) -delete
 
       - name: Deploy to GitHub Pages
         run: |
