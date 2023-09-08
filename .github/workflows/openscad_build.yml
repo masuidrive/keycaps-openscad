@@ -39,14 +39,10 @@ jobs:
                 done
             done
           '
-
       - name: Convert PNG thumbnails to WebP
         run: |
-          thumbnail_counter=1
           for png in $(find . -name "*.png"); do
-              webp_path="${png%.png}_$thumbnail_counter.webp"
-              cwebp $png -o $webp_path
-              thumbnail_counter=$((thumbnail_counter + 1))
+              cwebp $png -o ${png%.png}.webp
           done
 
       - name: Clean up directory (Only keep STL and WebP files and txt descriptions)
