@@ -25,7 +25,7 @@ jobs:
             find . -name "*.scad" | grep -v "^./lib/" | while read scad; do
                 stl_path="${scad%.scad}.stl"
                 openscad -o $stl_path $scad
-                angles=("0,0,0" "70,330,0" "140,0,0" "210,330,0")
+                angles=("0,0,0,70,0,0,100" "0,0,0,140,0,0,100" "0,0,0,210,0,0,100" "0,0,0,280,0,0,100")
                 for angle in "${angles[@]}"; do
                     png_path="${scad%.scad}_$(echo $angle | tr ',' '-').png"
                     openscad --camera=$angle --colorscheme="Tomorrow" --render --imgsize=512,512 -o $png_path $scad
