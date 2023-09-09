@@ -70,6 +70,7 @@ jobs:
           repo_url="https://github.com/$GITHUB_REPOSITORY/blob/gh-pages"
           echo "<!DOCTYPE html><html><head><link href='https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css' rel='stylesheet'></head><body>" > index.html
           echo '<div class="container mx-auto my-4 px-4">' >> index.html
+          echo "<div>$GITHUB_REPOSITORY keycaps</div>"
           find . -name "*.stl" | while read stl; do
             scad_name="${stl%.stl}.scad"
             txt_name="${stl%.stl}.txt"
