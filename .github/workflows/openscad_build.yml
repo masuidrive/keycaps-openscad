@@ -84,12 +84,12 @@ jobs:
             echo "    <div class='mb-8'>" >> index.html
             echo "      <div class='text-gray-900 font-bold text-xl mb-2'>$title</div>" >> index.html
             if [ -f $txt_name ]; then
-            echo "      <p class='text-gray-700 text-base'>" >> index.html
-            cat $txt_name | sed 's/$/<br\/>/' >> index.html
-            echo "      </p>" >> index.html
+             echo "      <p class='text-gray-700 text-base'>" >> index.html
+             cat $txt_name | sed 's/$/<br\/>/' | awk 'BEGIN{RS="<br/>";ORS=RS}1' | sed '$ s/<br\/>$//' >> index.html
+             echo "      </p>" >> index.html
             fi
             echo "    </div>" >> index.html
-            echo "    <div class='px-6 pt-4 pb-2'>" >> index.html
+            echo "    <div class=''>" >> index.html
             echo "      <a href='$github_link' class='inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'>View on GitHub</a>" >> index.html
             echo "      <a href='$stl_link' class='inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'>Preview STL</a>" >> index.html
             echo "    </div>" >> index.html
