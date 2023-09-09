@@ -68,18 +68,17 @@ jobs:
       - name: Generate index.html
         run: |
           repo_url="https://github.com/$GITHUB_REPOSITORY/blob/gh-pages"
-          echo "<!DOCTYPE html><html><head><link href='https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css' rel='stylesheet'></head><body>" > index.html
+          echo "<!DOCTYPE html><html><head><link href='https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css' rel='stylesheet'></head><body class='bg-gray-200'>" > index.html
           echo '<div class="container mx-auto my-4 px-4">' >> index.html
-          echo "<div>$GITHUB_REPOSITORY keycaps</div>"
+          echo "<h1>$GITHUB_REPOSITORY keycaps</h1>"
           find . -name "*.stl" | while read stl; do
             scad_name="${stl%.stl}.scad"
             txt_name="${stl%.stl}.txt"
             thumbnail_name="${stl%.stl}.webp"
-            link="$repo_url/$stl"
+            link="$repo_url/$stl"https://masuidrive.com/keycaps-openscad/
             title="${stl#./}"  # Removing './' from the title
             echo "<div class='w-full flex rounded overflow-hidden shadow-lg'>" >> index.html
-            echo "  <div class='h-48 w-48 flex-none bg-cover rounded-l text-center overflow-hidden' style='background-image: url(\"$thumbnail_name\")'>" >> index.html
-            echo "  aa</div>" >> index.html
+            echo "  <div class='h-48 w-48 flex-none bg-cover rounded-l text-center overflow-hidden' style='background-image: url(\"$thumbnail_name\")'></div>" >> index.html
             echo "  <div class='p-4 flex flex-col justify-between leading-normal'>" >> index.html
             echo "    <div class='mb-8'>" >> index.html
             echo "      <div class='text-gray-900 font-bold text-xl mb-2'>$title</div>" >> index.html
