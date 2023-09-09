@@ -55,25 +55,36 @@ jobs:
         run: |
           repo_url="https://github.com/$GITHUB_REPOSITORY/blob/gh-pages"
           echo "<!DOCTYPE html><html><head><link href='https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css' rel='stylesheet'></head><body>" > index.html
+          echo '<div class="container mx-auto my-4 px-4">' >> index.html
           find . -name "*.stl" | while read stl; do
             scad_name="${stl%.stl}.scad"
             txt_name="${stl%.stl}.txt"
             link="$repo_url/$stl"
             title="${stl#./}"  # Removing './' from the title
-            echo "<h2 class='text-2xl font-bold'><a href='$link'>$title</a></h2>" >> index.html
+            echo "<div class='max-w-sm w-full lg:max-w-full lg:flex'>" >> index.html
+            echo "  <div class='h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden' style='background-image: url('/img/card-left.jpg')' title='Woman holding a mug'>" >> index.html
+            echo "  </div>" >> index.html
+            echo "  <div class='border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal'>" >> index.html
+            echo "    <div class='mb-8'>" >> index.html
+            echo "      <div class='text-gray-900 font-bold text-xl mb-2'>$title</div>" >> index.html
             if [ -f $txt_name ]; then
-                cat $txt_name | sed 's/$/<br\/>/' >> index.html
+            echo "      <p class='text-gray-700 text-base'>" >> index.html
+            cat $txt_name | sed 's/$/<br\/>/' >> index.html
+            echo "      </p>" >> index.html
             fi
+            echo "    </div>" >> index.html
+            echo "  </div>" >> index.html
+            echo "</div>" >> index.html
+
             thumbnail_counter=1
             echo "<div class='inline-block'>" >> index.html  # Create a container for the thumbnails
             while [ $thumbnail_counter -le 4 ]; do
                 webp_name="${stl%.stl}_$thumbnail_counter.webp"
-                echo "<a href='$link'><img class='w-24 h-24' src='$webp_name' title='$title'></a>" >> index.html
+                # echo "<a href='$link'><img class='w-24 h-24' src='$webp_name' title='$title'></a>" >> index.html
                 thumbnail_counter=$((thumbnail_counter + 1))
             done
-            echo "</div>" >> index.html
           done
-          echo "</body></html>" >> index.html
+          echo "</div></body></html>" >> index.html
 
       - name: Deploy to GitHub Pages
         run: |
