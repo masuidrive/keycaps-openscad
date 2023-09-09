@@ -73,7 +73,7 @@ jobs:
           find . -name "*.stl" | while read stl; do
             scad_name="${stl%.stl}.scad"
             txt_name="${stl%.stl}.txt"
-            thumbnail_name="${stl%.stl}_1.webp"
+            thumbnail_name="${stl%.stl}.webp"
             link="$repo_url/$stl"
             title="${stl#./}"  # Removing './' from the title
             echo "<div class='max-w-sm rounded overflow-hidden shadow-lg'>" >> index.html
@@ -90,14 +90,6 @@ jobs:
             echo "    </div>" >> index.html
             echo "  </div>" >> index.html
             echo "</div>" >> index.html
-
-            thumbnail_counter=1
-            echo "<div class='inline-block'>" >> index.html  # Create a container for the thumbnails
-            while [ $thumbnail_counter -le 4 ]; do
-                webp_name="${stl%.stl}_$thumbnail_counter.webp"
-                # echo "<a href='$link'><img class='w-24 h-24' src='$webp_name' title='$title'></a>" >> index.html
-                thumbnail_counter=$((thumbnail_counter + 1))
-            done
           done
           echo "</div></body></html>" >> index.html
 
