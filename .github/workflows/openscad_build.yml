@@ -59,10 +59,11 @@ jobs:
           find . -name "*.stl" | while read stl; do
             scad_name="${stl%.stl}.scad"
             txt_name="${stl%.stl}.txt"
+            thumbnail_name="${stl%.stl}_1.webp"
             link="$repo_url/$stl"
             title="${stl#./}"  # Removing './' from the title
-            echo "<div class='max-w-sm w-full lg:max-w-full lg:flex'>" >> index.html
-            echo "  <div class='h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden' style='background-image: url('/img/card-left.jpg')' title='Woman holding a mug'>" >> index.html
+            echo "<div class='max-w-sm rounded overflow-hidden shadow-lg'>" >> index.html
+            echo "  <div class='h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden' style='background-image: url('$thumbnail_name')'>" >> index.html
             echo "  </div>" >> index.html
             echo "  <div class='border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal'>" >> index.html
             echo "    <div class='mb-8'>" >> index.html
