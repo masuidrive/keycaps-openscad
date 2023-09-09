@@ -80,7 +80,7 @@ jobs:
             title="${stl#./}"
             echo "<div class='bg-white w-full flex rounded overflow-hidden shadow-lg mb-8'>" >> index.html
             echo "  <div class='h-48 w-48 flex-none bg-cover rounded-l text-center overflow-hidden' style='background-image: url(\"$thumbnail_name\")'></div>" >> index.html
-            echo "  <div class='p-4 flex flex-col justify-between leading-normal'>" >> index.html
+            echo "  <div class='px-4 py-2 flex flex-col justify-between leading-normal'>" >> index.html
             echo "    <div>" >> index.html
             echo "      <div class='text-gray-900 font-bold text-xl mb-2'>$title</div>" >> index.html
             if [ -f $txt_name ]; then
