@@ -77,7 +77,7 @@ jobs:
             thumbnail_name="${stl%.stl}.webp"
             stl_link="https://github.com/$GITHUB_REPOSITORY/blob/gh-pages/${stl#./}"
             github_link="https://github.com/$GITHUB_REPOSITORY/blob/main/$scad_name"
-            title="${stl#./}"  # Removing './' from the title
+            title="${stl#./}"
             echo "<div class='bg-white w-full flex rounded overflow-hidden shadow-lg'>" >> index.html
             echo "  <div class='h-48 w-48 flex-none bg-cover rounded-l text-center overflow-hidden' style='background-image: url(\"$thumbnail_name\")'></div>" >> index.html
             echo "  <div class='p-4 flex flex-col justify-between leading-normal'>" >> index.html
@@ -89,10 +89,10 @@ jobs:
             echo "      </p>" >> index.html
             fi
             echo "    </div>" >> index.html
-            echo "    <div class='px-6 pt-4 pb-2'>
-            echo "      <a href='$github_link' class='inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'>View on GitHub</a>
-            echo "      <a href='$stl_link' class='inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'>Preview STL</a>
-            echo "    </div>
+            echo "    <div class='px-6 pt-4 pb-2'>" >> index.html
+            echo "      <a href='$github_link' class='inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'>View on GitHub</a>" >> index.html
+            echo "      <a href='$stl_link' class='inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'>Preview STL</a>" >> index.html
+            echo "    </div>" >> index.html
             echo "  </div>" >> index.html
             echo "</div>" >> index.html
           done
