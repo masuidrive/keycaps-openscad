@@ -51,9 +51,9 @@ jobs:
               "${base_name}_3.png" "${base_name}_4.png" \
               -geometry +0+0 -tile 2x2 \
               $output
+              rm  "${base_name}_1.png" "${base_name}_2.png" \
+                  "${base_name}_3.png" "${base_name}_4.png"
           done
-          rm  "${base_name}_1.png" "${base_name}_2.png" \
-              "${base_name}_3.png" "${base_name}_4.png"
 
       - name: Convert PNG thumbnails to WebP
         run: |
