@@ -89,9 +89,9 @@ jobs:
             echo "      </p>" >> index.html
             fi
             echo "    </div>" >> index.html
-            echo "    <div class="px-6 pt-4 pb-2">
-            echo "      <a href='$github_link' class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">View on GitHub</a>
-            echo "      <a href='$stl_link' class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">Preview STL</a>
+            echo "    <div class='px-6 pt-4 pb-2'>
+            echo "      <a href='$github_link' class='inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'>View on GitHub</a>
+            echo "      <a href='$stl_link' class='inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2'>Preview STL</a>
             echo "    </div>
             echo "  </div>" >> index.html
             echo "</div>" >> index.html
