@@ -71,7 +71,7 @@ jobs:
           echo "<!DOCTYPE html><html><head><link href='https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css' rel='stylesheet'></head><body class='bg-gray-200'>" > index.html
           echo '<div class="container mx-auto px-4">' >> index.html
           echo "<h1 class='my-8 text-4xl font-extrabold leading-none tracking-tight text-gray-900'>$GITHUB_REPOSITORY</h1>" >> index.html
-          find . -name "*.stl" | while read stl; do
+          find . -name "*.stl" | sort | while read stl; do
             scad_name="${stl%.stl}.scad"
             txt_name="${stl%.stl}.txt"
             thumbnail_name="${stl%.stl}.webp"
