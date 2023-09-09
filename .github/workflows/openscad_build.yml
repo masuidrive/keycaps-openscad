@@ -18,7 +18,7 @@ jobs:
       - name: Install OpenSCAD, WebP tools, and Xvfb
         run: |
           sudo apt-get update
-          sudo apt-get install -y openscad webp xvfb
+          sudo apt-get install -y openscad webp xvfb imagemagick
 
       - name: Generate STL files and multiple PNG thumbnails
         run: |
@@ -40,6 +40,20 @@ jobs:
                 done
             done
           '
+
+      - name: Combine thumbnails into a single image
+        run: |
+          find . -name "*_1.png" | while read first_thumbnail; do
+            base_name="${first_thumbnail%_1.png}"
+            output="${base_name}.png"
+            montage \
+              "${base_name}_1.png" "${base_name}_2.png" \
+              "${base_name}_3.png" "${base_name}_4.png" \
+              -geometry +0+0 -tile 2x2 \
+              $output
+          done
+          rm  "${base_name}_1.png" "${base_name}_2.png" \
+              "${base_name}_3.png" "${base_name}_4.png"
 
       - name: Convert PNG thumbnails to WebP
         run: |
