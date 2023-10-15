@@ -1,10 +1,8 @@
-// https://qiita.com/zk_phi/items/ab99315ebaef66e84aa0
-// https://bebebe.hatenablog.jp/entry/2019/06/04/232501
-// https://qiita.com/zk_phi/items/ab99315ebaef66e84aa0
 
 $fs = 0.1;
 $fa = 0.25;
 
+// 角丸のプレート
 module rounded_plate(x, y, r) {
   thickness = 0.0001;
   minkowski () {
@@ -13,7 +11,7 @@ module rounded_plate(x, y, r) {
   }
 }
 
-
+// キーキャップの外観を定義
 module keycap1_outer_shape(bottom_size, middle_size, top_size, top_height, skert_height) {
   hull () {
     translate([0, 0, top_height])
@@ -64,12 +62,6 @@ module keycap_shape () {
   }
 }
 
-difference() {
-
-keycap_shape();
-
-}
-
 module kailh_choc_v1_stem() {
     translate([-2.85, 0, -3/2])
     cube([1, 2, 3], center=true);
@@ -77,4 +69,11 @@ module kailh_choc_v1_stem() {
     cube([1, 2, 3], center=true);
 }
 
-kailh_choc_v1_stem();
+union() {
+  keycap_shape();
+  kailh_choc_v1_stem();
+}
+
+// https://qiita.com/zk_phi/items/ab99315ebaef66e84aa0
+// https://bebebe.hatenablog.jp/entry/2019/06/04/232501
+// https://qiita.com/zk_phi/items/ab99315ebaef66e84aa0
