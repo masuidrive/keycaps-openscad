@@ -30,7 +30,6 @@ module keycap_shape() {
   bottom_size = 15;
   middle_size = 14;
   top_size = 12.5;
-  head_height = 1.5;
   skert_height = 5.0; 
   
   difference () {
@@ -41,7 +40,6 @@ module keycap_shape() {
   }
 }
 
-
 module kailh_choc_v1_stem() {
   translate([-2.85, 0, -3/2])
   cube([1, 2, 3], center=true);
@@ -49,7 +47,7 @@ module kailh_choc_v1_stem() {
   cube([1, 2, 3], center=true);
 }
 
-union {
+union() {
   keycap_shape();
   kailh_choc_v1_stem();
 }
