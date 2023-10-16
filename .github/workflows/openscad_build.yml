@@ -25,7 +25,7 @@ jobs:
           xvfb-run -a --server-args="-screen 0 1024x768x24" bash -c '
             find ./keycaps -name "*.scad" | grep -v "^./lib/" | while read scad; do
                 stl_path="${scad%.scad}.stl"
-                openscad -o $stl_path $scad
+                openscad -o $stl_path $scad -D "DEBUG=false"
                 angles=(
                   "0,0,0,65,0,25,100"
                   "0,0,0,65,0,115,100"
