@@ -1,2 +1,2 @@
 上面がcylindricalになっている
-Choc V1
+Choc V1 0.8u

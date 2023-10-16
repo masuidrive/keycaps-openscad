@@ -1,6 +1,7 @@
 
 $fs = 0.1;
 $fa = 0.25;
+DEBUG = false;
 
 // 角丸のプレート
 module rounded_plate(x, y, r) {
@@ -17,8 +18,10 @@ module keycap1_outer_shape(bottom_size, middle_size, top_size, top_height, skert
     translate([0, 0, top_height])
     rounded_plate(top_size, top_size, 1);
     
-    translate([0, 0, 0])
-    rounded_plate(middle_size, middle_size, 1);
+    if(middle_size > 0) {
+      translate([0, 0, 0])
+      rounded_plate(middle_size, middle_size, 1);
+    }
     
     translate([0, 0, -skert_height])
     rounded_plate(bottom_size, bottom_size, 1);
@@ -42,12 +45,12 @@ module head_depress(top_size, top_height, depth) {
 module keycap_shape () {
   thickness = 1.0;
   
-  bottom_size = 15;
-  middle_size = 14;
+  bottom_size = 15.6;
+  middle_size = 14.5;
   top_height = 1.5;
   top_size = 12;
   top_depth = 1.0;
-  skert_height = 5.0; 
+  skert_height = 1.0; 
 
   
   difference () {
@@ -63,15 +66,28 @@ module keycap_shape () {
 }
 
 module kailh_choc_v1_stem() {
-    translate([-2.85, 0, -3/2])
-    cube([1, 2, 3], center=true);
-    translate([2.85, 0, -3/2])
-    cube([1, 2, 3], center=true);
+  leg_length = 3.6;
+  translate([-2.85, 0, -leg_length/2])
+  cube([1, 2, leg_length], center=true);
+  translate([2.85, 0, -leg_length/2])
+  cube([1, 2, leg_length], center=true);
 }
 
-union() {
-  keycap_shape();
-  kailh_choc_v1_stem();
+
+if(DEBUG) {
+  // 断面図
+  difference() {
+    union() {
+      keycap_shape();
+      kailh_choc_v1_stem();
+      translate([0,0,-3.3]) import("../3rd_parties/choc_v1_switch.stl", convexity=10);
+    }
+    translate([-10, 0, -10]) cube([20, 20, 20]);
+  }
+}
+else {
+    keycap_shape();
+    kailh_choc_v1_stem();
 }
 
 // https://qiita.com/zk_phi/items/ab99315ebaef66e84aa0
