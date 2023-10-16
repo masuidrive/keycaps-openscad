@@ -107,6 +107,6 @@ jobs:
           git config user.email "masuidrive@users.noreply.githufullb.com"
           git checkout -b gh-pages
           find ./keycaps -type f  \( -name "*.stl" -o -name "*.webp" \) -exec git add {} \;
-          git index.html
+          git add index.html
           git commit -m "Update STL files and thumbnails of https://github.com/$GITHUB_REPOSITORY"
           git push -f origin gh-pages
