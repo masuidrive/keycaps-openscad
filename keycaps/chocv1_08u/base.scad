@@ -40,13 +40,19 @@ module keycap_shape() {
   }
 }
 
+// ChocV1の足を作る
 module kailh_choc_v1_stem() {
   leg_length = 3.6;
+  thin_length = 0.6;
 
-  translate([-2.85, 0, -leg_length/2])
-  cube([1, 2, leg_length], center=true);
-  translate([2.85, 0, -leg_length/2])
-  cube([1, 2, leg_length], center=true);
+  for (z = [-2.85, 2.85]) {
+    translate([z, 0, -leg_length/2])
+      hull() {
+        cube([1, 2, leg_length], center=true);
+        translate([0, 0, -(leg_length/2)-thin_length])
+          cube([0.5, 1, 0.001], center=true);
+      }
+  }
 }
 
 module generate() {

@@ -63,7 +63,10 @@ jobs:
 
       - name: Clean up directory (Only keep STL, WebP files and txt descriptions)
         run: |
-          find . ! -path "./.git/*" ! -name ".git" -type f ! \( -name "*.stl" -o -name "*.webp" -o -name "*.txt" \)  -exec rm -rf {} \;
+          rm -f .gitignore
+          find . ! -path "./.git/*" ! -name ".git" -type f ! \( -name "*.stl" -o -name "*.webp" -o -name "*.txt" \)
+          find . ! -path "./.git/*" ! -name ".git" -type f ! \( -name "*.stl" -o -name "*.webp" -o -name "*.txt" \) -exec rm -rf {} \;
+          ls -R
 
       - name: Generate index.html
         run: |
