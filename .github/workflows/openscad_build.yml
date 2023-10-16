@@ -103,9 +103,12 @@ jobs:
 
       - name: Deploy to GitHub Pages
         run: |
+          ls -R
           git config user.name "GitHub Actions Bot"
           git config user.email "masuidrive@users.noreply.githufullb.com"
           git checkout -b gh-pages
+          echo "checked out"
+          ls -R
           git add **/*.stl **/*.webp index.html
           git commit -m "Update STL files and thumbnails of https://github.com/$GITHUB_REPOSITORY"
           git push -f origin gh-pages
