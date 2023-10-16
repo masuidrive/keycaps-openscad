@@ -33,12 +33,12 @@ module keycap_basic_shape(
   skert_height,
   bottom_size,
   thickness = 1.0,
-  r = 1.0) {
+  side_r = 1.0) {
   difference () {
     // 外形
-    keycap_basic_outer_shape(bottom_size, middle_size, top_size, head_height, skert_height, r);
+    keycap_basic_outer_shape(bottom_size, middle_size, top_size, head_height, skert_height, side_r);
     // くり抜くための外形
-    keycap_basic_outer_shape(bottom_size - thickness * 2, middle_size - thickness * 2, top_size - thickness * 2, 0, skert_height, r);
+    keycap_basic_outer_shape(bottom_size - thickness * 2, middle_size - thickness * 2, top_size - thickness * 2, 0, skert_height, side_r);
   }
 }
 

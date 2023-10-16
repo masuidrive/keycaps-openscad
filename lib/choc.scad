@@ -1,8 +1,4 @@
-
-
-
-
-// ChocV1の足を作る
+// Choc V1の足を作る
 module kailh_choc_v1_stem() {
   leg_length = 3.6;
   thin_length = 0.6;
