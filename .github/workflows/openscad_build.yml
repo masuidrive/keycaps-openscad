@@ -61,7 +61,7 @@ jobs:
               cwebp $png -o ${png%.png}.webp
           done
 
-      - name: Clean up directory (Only keep STL and WebP files and txt descriptions)
+      - name: Clean up directory (Only keep STL, WebP files and txt descriptions)
         run: |
           find . ! -path "./.git/*" ! -name ".git" -type f ! \( -name "*.stl" -o -name "*.webp" -o -name "*.txt" \)  -exec rm -rf {} \;
 

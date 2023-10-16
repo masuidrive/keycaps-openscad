@@ -30,7 +30,7 @@ module keycap_shape() {
   bottom_size = 15;
   middle_size = 14;
   top_size = 12.5;
-  skert_height = 5.0; 
+  skert_height = 1.0; 
   
   difference () {
     // 外形
@@ -41,13 +41,19 @@ module keycap_shape() {
 }
 
 module kailh_choc_v1_stem() {
-  translate([-2.85, 0, -3/2])
-  cube([1, 2, 3], center=true);
-  translate([2.85, 0, -3/2])
-  cube([1, 2, 3], center=true);
+  leg_length = 3.6;
+
+  translate([-2.85, 0, -leg_length/2])
+  cube([1, 2, leg_length], center=true);
+  translate([2.85, 0, -leg_length/2])
+  cube([1, 2, leg_length], center=true);
 }
 
-union() {
-  keycap_shape();
-  kailh_choc_v1_stem();
+module generate() {
+  union() {
+    keycap_shape();
+    kailh_choc_v1_stem();
+  }
 }
+
+generate()
