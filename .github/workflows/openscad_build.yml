@@ -23,12 +23,12 @@ jobs:
       - name: Generate STL files and multiple PNG thumbnails
         run: |
           xvfb-run -a --server-args="-screen 0 1024x768x24" bash -c '
-            find . -name "*.scad" | grep -v "^./lib/" | while read scad; do
+            find ./keycaps -name "*.scad" | grep -v "^./lib/" | while read scad; do
                 stl_path="${scad%.scad}.stl"
                 openscad -o $stl_path $scad
                 angles=(
                   "0,0,0,65,0,25,100"
-                  "0,0,0,65,0,205,100"
+                  "0,0,0,65,0,115,100"
                   "0,0,0,25,25,25,100"
                   "0,0,0,-155,-25,0,100"
                 )
@@ -43,7 +43,7 @@ jobs:
 
       - name: Combine thumbnails into a single image
         run: |
-          find . -name "*.stl" | while read stl; do
+          find ./keycaps -name "*.stl" | while read stl; do
             base_name="${stl%.stl}"
             output="${base_name}.png"
             montage \
@@ -57,7 +57,7 @@ jobs:
 
       - name: Convert PNG thumbnails to WebP
         run: |
-          for png in $(find . -name "*.png"); do
+          for png in $(find ./keycaps -name "*.png"); do
               cwebp $png -o ${png%.png}.webp
           done
 
@@ -71,7 +71,7 @@ jobs:
           echo "<!DOCTYPE html><html><head><link href='https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css' rel='stylesheet'></head><body class='bg-gray-200'>" > index.html
           echo '<div class="container mx-auto px-4">' >> index.html
           echo "<h1 class='my-8 text-4xl font-extrabold leading-none tracking-tight text-gray-900'>$GITHUB_REPOSITORY</h1>" >> index.html
-          find . -name "*.stl" | sort | while read stl; do
+          find ./keycaps -name "*.stl" | sort | while read stl; do
             scad_name="${stl%.stl}.scad"
             txt_name="${stl%.stl}.txt"
             thumbnail_name="${stl%.stl}.webp"
