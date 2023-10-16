@@ -56,4 +56,4 @@ module generate() {
   }
 }
 
-generate()
+generate();
