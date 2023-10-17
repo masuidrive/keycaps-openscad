@@ -3,8 +3,6 @@ include <../../lib/utils.scad>
 
 DEBUG = "x";
 
-$fs = 0.1;
-
 preview_chocv1_switch(DEBUG) {
   union() {
     keycap_basic_shape(

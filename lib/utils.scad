@@ -5,7 +5,7 @@ module rounded_plate(x, y, r) {
   thickness = 0.0001;
   minkowski () {
     cube([x-r*2, y-r*2, thickness], center = true);
-    cylinder(r = r, h = thickness);
+    cylinder(r = r, h = thickness, $fs = 0.1);
   }
 }
 
@@ -54,6 +54,24 @@ module head_cylindrical_depress(top_size, top_height, depth) {
     translate([0, 0, dish_r(top_size, depth) - depth+top_height])
     rotate([90, 0, 0])
     cylinder(r = dish_r(top_size, depth), h = 60, /* 適当に十分な長さ */ center = true);
+  }
+}
+
+// Generate dome sphere object
+// calc r parameter on https://gist.github.com/masuidrive/b34472d82b07d0efead83aedf5579b78
+module dome(width, height, r=0) {
+  calc_width = 2 * sqrt(r^2 - (r - height)^2);
+
+  if(abs(width - calc_width) > 0.1) {
+    echo("><><><><><><><><><><");
+    echo("WARNING: dome arguments are not correct, should be width ", calc_width);
+  }
+
+  difference(){
+    translate([0, 0, height-r])
+      sphere(r = r, $fn = 100);
+    translate([0, 0, -r])
+      cube([r*2, r*2, r*2], center = true);
   }
 }
 
