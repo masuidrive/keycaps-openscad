@@ -10,18 +10,18 @@ module rounded_plate(x, y, r) {
 }
 
 // ベーシックなキーキャップの外観を定義
-module keycap_basic_outer_shape(bottom_size, middle_size, top_size, top_height, skert_height) {
+module keycap_basic_outer_shape(bottom_size, middle_size, top_size, top_height, skert_height, side_r) {
   hull () {
     translate([0, 0, top_height])
-    rounded_plate(top_size, top_size, 1);
+    rounded_plate(top_size, top_size, side_r);
     
     if(middle_size > 0) {
       translate([0, 0, 0])
-      rounded_plate(middle_size, middle_size, 1);
+      rounded_plate(middle_size, middle_size, side_r);
     }
     
     translate([0, 0, -skert_height])
-    rounded_plate(bottom_size, bottom_size, 1);
+    rounded_plate(bottom_size, bottom_size, side_r);
   }
 }
 
@@ -38,7 +38,7 @@ module keycap_basic_shape(
     // 外形
     keycap_basic_outer_shape(bottom_size, middle_size, top_size, head_height, skert_height, side_r);
     // くり抜くための外形
-    keycap_basic_outer_shape(bottom_size - thickness * 2, middle_size - thickness * 2, top_size - thickness * 2, 0, skert_height, side_r);
+    keycap_basic_outer_shape(bottom_size - thickness * 2, middle_size - thickness * 2, top_size - thickness * 2, 0, skert_height+0.005, side_r);
   }
 }
 
