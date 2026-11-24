@@ -1,0 +1,143 @@
+{
+  "A": {
+    "bounds_mm": [
+      14.5,
+      8.0,
+      5.7
+    ],
+    "flat_top_bounds_mm": [
+      12.9,
+      6.4
+    ],
+    "top_outer_chamfer_mm": 0.8,
+    "peg_tip_chamfer_mm": 0.08,
+    "peg_xy_mm": [
+      1.1,
+      2.8
+    ],
+    "peg_pitch_mm": 5.7,
+    "plate_mm": 2.0,
+    "shoulder_mm": 0.6,
+    "peg_mm": 3.1,
+    "grooves": 1,
+    "groove_dimensions_mm": [
+      2.0,
+      1.0,
+      0.8
+    ],
+    "step_solid": "valid single solid after round-trip",
+    "upper_chamfer_only_vs_reconstructed_baseline": true,
+    "unchanged_functional_underside_vs_revd": true,
+    "revd_step_reference_sha256": "09436d4eacf10249c3beb42bb429b7dd450071250562a0bbecd6753a0301f416",
+    "revd_actual_step_removal_mm3": 15.36,
+    "front_side_groove_outer_margin_mm": 0.5,
+    "step_volume_mm3": 241.978654,
+    "stl": {
+      "triangles": 3364,
+      "welded_vertices": 1684,
+      "closed": true,
+      "edge_manifold": true,
+      "single_component": true,
+      "outward_winding": true,
+      "volume_mm3": 241.977463
+    },
+    "sha256": {
+      "ChocV1_14p5x8_RevE_A.stl": "62dc0e57999e50c5f12d8e4b1ff3de7f947cf330bb502ba1e275e2a10c3ed2d6",
+      "ChocV1_14p5x8_RevE_A.step": "2628c2fc33227f98d9a61613dd67d2ef7757f2de0ef07ad4818eb5925280265f"
+    }
+  },
+  "B": {
+    "bounds_mm": [
+      14.5,
+      8.0,
+      5.7
+    ],
+    "flat_top_bounds_mm": [
+      12.9,
+      6.4
+    ],
+    "top_outer_chamfer_mm": 0.8,
+    "peg_tip_chamfer_mm": 0.08,
+    "peg_xy_mm": [
+      1.15,
+      2.85
+    ],
+    "peg_pitch_mm": 5.7,
+    "plate_mm": 2.0,
+    "shoulder_mm": 0.6,
+    "peg_mm": 3.1,
+    "grooves": 2,
+    "groove_dimensions_mm": [
+      2.0,
+      1.0,
+      0.8
+    ],
+    "step_solid": "valid single solid after round-trip",
+    "upper_chamfer_only_vs_reconstructed_baseline": true,
+    "unchanged_functional_underside_vs_revd": true,
+    "revd_step_reference_sha256": "cc22140b3b05700250dcbe02e160d6d8f2ffeff1cb0f565d12d7aef448f013f4",
+    "revd_actual_step_removal_mm3": 15.36,
+    "front_side_groove_outer_margin_mm": 0.5,
+    "step_volume_mm3": 241.601874,
+    "stl": {
+      "triangles": 3380,
+      "welded_vertices": 1692,
+      "closed": true,
+      "edge_manifold": true,
+      "single_component": true,
+      "outward_winding": true,
+      "volume_mm3": 241.600678
+    },
+    "sha256": {
+      "ChocV1_14p5x8_RevE_B.stl": "993d126f86f98d253f4792e574be626842ef37ed7212f0a0d86bf7faed39e74d",
+      "ChocV1_14p5x8_RevE_B.step": "3dc1331aa3a9fab76db570f6f629cd83c798d09428f08a39f7079d9a59b0cd11"
+    }
+  },
+  "C": {
+    "bounds_mm": [
+      14.5,
+      8.0,
+      5.7
+    ],
+    "flat_top_bounds_mm": [
+      12.9,
+      6.4
+    ],
+    "top_outer_chamfer_mm": 0.8,
+    "peg_tip_chamfer_mm": 0.08,
+    "peg_xy_mm": [
+      1.2,
+      2.9
+    ],
+    "peg_pitch_mm": 5.7,
+    "plate_mm": 2.0,
+    "shoulder_mm": 0.6,
+    "peg_mm": 3.1,
+    "grooves": 3,
+    "groove_dimensions_mm": [
+      2.0,
+      1.0,
+      0.8
+    ],
+    "step_solid": "valid single solid after round-trip",
+    "upper_chamfer_only_vs_reconstructed_baseline": true,
+    "unchanged_functional_underside_vs_revd": true,
+    "revd_step_reference_sha256": "f997e79d5a8d480775ceae6b86827c689108568874c4012ed293037e1ee2f849",
+    "revd_actual_step_removal_mm3": 15.36,
+    "front_side_groove_outer_margin_mm": 0.5,
+    "step_volume_mm3": 241.256094,
+    "stl": {
+      "triangles": 3396,
+      "welded_vertices": 1700,
+      "closed": true,
+      "edge_manifold": true,
+      "single_component": true,
+      "outward_winding": true,
+      "volume_mm3": 241.254903
+    },
+    "sha256": {
+      "ChocV1_14p5x8_RevE_C.stl": "6e7f19502c1fbe9af3934b73f1bbee2bf5bdde3efad5e3c89912e202910aad87",
+      "ChocV1_14p5x8_RevE_C.step": "eef505bf3ea1de4b6a48d7f8d1cf8f64a41c29c3410c7ef7b28d7f0e040fd184"
+    }
+  }
+}
